@@ -1,0 +1,103 @@
+/* Tailwind source. Build to assets/css/app.css with `npm run css:build` (or css:watch while developing). */
+@import "tailwindcss" source(none);
+@source "../../views";
+@source "../../app";
+@source "../js";
+
+/* ---------- Design tokens: Vietnamese royal heritage ---------- */
+@theme {
+  --color-crimson: #8B1E1E;        /* đỏ son – primary */
+  --color-crimson-light: #9E2A2B;
+  --color-crimson-dark: #6E1515;
+  --color-gold: #C59B27;           /* vàng hoàng / đồng */
+  --color-gold-light: #E0C068;
+  --color-gold-dark: #9C7A1C;
+  --color-ivory: #FAF6F0;          /* nền giấy lụa */
+  --color-silk: #F3EBDD;
+  --color-ink: #2B2623;            /* chữ mực */
+  --color-ink-soft: #5C534D;
+  --color-line: #E5D9C6;
+
+  --font-serif: "Cormorant Garamond", "Times New Roman", serif;
+  --font-sans: "Be Vietnam Pro", system-ui, sans-serif;
+
+  --ease-silk: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply bg-ivory font-sans text-ink antialiased; }
+  h1, h2, h3, h4 { @apply font-serif font-semibold tracking-tight text-ink; }
+  ::selection { @apply bg-gold/30; }
+  :focus-visible { @apply outline-2 outline-offset-2 outline-gold; }
+}
+
+/* ---------- Reusable classes ---------- */
+@utility container-page { @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8; }
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-sm px-6 py-3 text-sm font-medium tracking-wide
+         transition-all duration-300 ease-silk disabled:cursor-not-allowed disabled:opacity-50;
+}
+@utility btn-primary { @apply btn bg-crimson text-ivory shadow-sm hover:bg-crimson-dark hover:shadow-md; }
+@utility btn-gold    { @apply btn bg-gold text-ink hover:bg-gold-light; }
+@utility btn-outline { @apply btn border border-crimson text-crimson hover:bg-crimson hover:text-ivory; }
+
+@utility input {
+  @apply w-full rounded-sm border border-line bg-white/70 px-3 py-2.5 text-sm text-ink transition
+         placeholder:text-ink-soft/60 focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/30;
+}
+
+@utility eyebrow { @apply text-xs font-semibold uppercase tracking-[0.25em] text-gold-dark; }
+
+/* Header nav link with a gold underline that grows on hover / when active */
+@utility nav-link {
+  @apply relative py-1 text-sm tracking-wide text-ink transition-colors hover:text-crimson;
+  &::after {
+    content: "";
+    @apply absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-gold transition-transform duration-300;
+  }
+  &:hover::after, &.is-active::after { @apply scale-x-100; }
+  &.is-active { @apply text-crimson; }
+}
+
+/* Pill tabs (featured products) */
+@utility tab {
+  @apply rounded-full border border-line bg-ivory px-4 py-1.5 text-sm transition hover:border-gold hover:text-crimson;
+  &.is-active { @apply border-crimson bg-crimson text-ivory hover:text-ivory; }
+}
+
+/* Arched frame used in the hero showcase */
+@utility arch-frame {
+  @apply relative overflow-hidden rounded-t-full border-2 border-gold/60 bg-silk shadow-2xl shadow-black/30;
+  &::after {
+    content: "";
+    @apply pointer-events-none absolute inset-1.5 rounded-t-full border border-ivory/40;
+  }
+}
+
+/* Faint lattice + cloud pattern on the crimson hero */
+@utility hero-pattern {
+  background-image:
+    radial-gradient(circle at 20% 0%, rgb(197 155 39 / 0.18), transparent 45%),
+    radial-gradient(circle at 100% 100%, rgb(0 0 0 / 0.25), transparent 50%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cg fill='none' stroke='%23C59B27' stroke-opacity='0.12' stroke-width='1'%3E%3Cpath d='M28 4 52 28 28 52 4 28z'/%3E%3Ccircle cx='28' cy='28' r='6'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Scroll reveal (JS adds .is-visible). Content stays visible without JS. */
+@utility reveal {
+  .js & {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity .8s var(--ease-silk), transform .8s var(--ease-silk);
+    transition-delay: var(--delay, 0ms);
+  }
+  .js &.is-visible { opacity: 1; transform: none; }
+}
+
+/* Elements only needed when JavaScript is off (e.g. the catalog "Apply" button) */
+.js [data-nojs-only] { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0ms !important; animation-duration: 0ms !important; scroll-behavior: auto !important; }
+}

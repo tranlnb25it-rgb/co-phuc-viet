@@ -1,0 +1,13 @@
+{
+  "name": "co-phuc-viet",
+  "private": true,
+  "description": "Build tooling only: compiles Tailwind CSS. The site itself runs on PHP (XAMPP).",
+  "scripts": {
+    "css:build": "tailwindcss -i assets/src/app.css -o assets/css/app.css --minify",
+    "css:watch": "tailwindcss -i assets/src/app.css -o assets/css/app.css --watch"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.5",
+    "tailwindcss": "^4.3.5"
+  }
+}

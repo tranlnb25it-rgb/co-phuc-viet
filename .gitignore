@@ -1,0 +1,12 @@
+node_modules/
+config/config.php
+uploads/*
+!uploads/.gitkeep
+!uploads/.htaccess
+.DS_Store
+*.log
+# assets/css/app.css is committed on purpose so the site runs on XAMPP without Node
+"client/" 
+
+# Vite cache (not part of the project)
+client/

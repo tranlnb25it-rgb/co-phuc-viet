@@ -1,0 +1,15 @@
+RewriteEngine On
+
+# Never serve internal folders or config directly
+RewriteRule ^(app|config|database|views|node_modules|assets/src)(/|$) - [F,L]
+<FilesMatch "^(package(-lock)?\.json|README\.md|\.gitignore)$">
+  Require all denied
+</FilesMatch>
+
+# Pass the Authorization header through to PHP (admin API)
+RewriteCond %{HTTP:Authorization} .
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+# Serve real files (assets, uploads) directly; route everything else to index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [QSA,L]
