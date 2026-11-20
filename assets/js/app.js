@@ -731,15 +731,7 @@
     else if (e.target.tagName === 'DIALOG') e.target.close();
   });
 
-  // ---------- Show / hide password ----------
-  document.addEventListener('click', (e) => {
-    const b = e.target.closest('[data-toggle-password]');
-    if (!b) return;
-    const input = b.parentElement.querySelector('input');
-    const show = input.type === 'password';
-    input.type = show ? 'text' : 'password';
-    b.textContent = show ? b.dataset.hide : b.dataset.show;
-  });
+  // (show / hide password buttons are added to every password field by common.js)
 
   // ---------- My account: switch sections over Ajax (PHP renders each section) ----------
   const accBody = document.querySelector('[data-account-body]');

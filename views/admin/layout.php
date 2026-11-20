@@ -93,6 +93,7 @@ $user = Auth::user();
 
 <!-- toast for Ajax feedback -->
 <div class="pointer-events-none fixed bottom-6 right-6 z-50 hidden max-w-sm rounded-sm px-4 py-3 text-sm text-ivory shadow-xl" data-admin-toast role="status"></div>
+<script src="<?= asset('js/common.js') ?>" defer></script>
 <script src="<?= asset('js/admin.js') ?>" defer></script>
 </body>
 </html>

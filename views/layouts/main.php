@@ -24,6 +24,7 @@
   <div class="pointer-events-none fixed inset-x-4 bottom-6 z-[60] flex justify-center sm:inset-x-auto sm:right-6">
     <p class="<?= $flash ? '' : 'hidden' ?> rounded-sm bg-ink px-4 py-3 text-sm text-ivory shadow-xl" data-site-toast role="status"><?= e($flash ?? '') ?></p>
   </div>
+  <script src="<?= asset('js/common.js') ?>" defer></script>
   <script src="<?= asset('js/app.js') ?>" defer></script>
 </body>
 </html>

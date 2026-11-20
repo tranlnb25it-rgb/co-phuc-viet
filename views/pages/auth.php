@@ -15,7 +15,6 @@ $regField = function (string $name, string $label, string $type = 'text', string
         . ' class="' . $in . '"' . ($err ? ' aria-invalid="true"' : '') . '>'
         . '<span class="mt-1 block min-h-4 text-xs text-crimson" data-error-for="' . $name . '">' . e($err) . '</span></label>';
 };
-$pwToggle = '<button type="button" data-toggle-password class="absolute inset-y-0 right-0 mt-1.5 px-3 text-xs text-ink-soft hover:text-crimson" data-show="' . e(t('auth.show')) . '" data-hide="' . e(t('auth.hide')) . '">' . e(t('auth.show')) . '</button>';
 ?>
 <section class="border-b border-line bg-silk/60">
   <div class="container-page py-8 text-center">
@@ -40,7 +39,7 @@ $pwToggle = '<button type="button" data-toggle-password class="absolute inset-y-
       <label class="block text-sm"><span class="font-medium"><?= e(t('auth.email')) ?></span>
         <input type="email" name="email" value="<?= e($login['email'] ?? '') ?>" autocomplete="email" required maxlength="190" class="<?= $in ?>" <?= $focus === 'login' ? 'autofocus' : '' ?>></label>
       <label class="block text-sm"><span class="font-medium"><?= e(t('auth.password')) ?></span>
-        <span class="relative block"><input type="password" name="password" autocomplete="current-password" required class="<?= $in ?> pr-14"><?= $pwToggle ?></span></label>
+        <input type="password" name="password" autocomplete="current-password" required class="<?= $in ?>"></label>
     </div>
     <button class="btn-primary mt-6 w-full" data-label="<?= e(t('auth.login')) ?>" data-busy-label="<?= e(t('auth.loggingIn')) ?>"><span><?= e(t('auth.login')) ?></span></button>
     <p class="mt-4 text-xs text-ink-soft"><?= e(t('auth.forgot', ['phone' => store_info()['phone']])) ?></p>
