@@ -28,7 +28,7 @@ $copyRow = fn(string $label, string $value, bool $strong = false) =>
   <?php if ($isBank): ?>
     <section class="mb-10 grid gap-8 border border-gold/50 bg-silk/60 p-6 sm:grid-cols-[auto_1fr] sm:p-8">
       <div class="text-center">
-        <div class="inline-block border border-line bg-white p-3 text-ink"><?= qr_placeholder($order['order_code'], 'h-48 w-48') ?></div>
+        <div class="palette-light inline-block border border-line bg-white p-3 text-ink"><?= qr_placeholder($order['order_code'], 'h-48 w-48') ?></div>
         <p class="mx-auto mt-2 max-w-48 text-[11px] leading-snug text-ink-soft"><?= e(t('order.bank.qrNote')) ?></p>
       </div>
       <div>

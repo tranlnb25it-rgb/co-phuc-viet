@@ -139,6 +139,49 @@
     revealEls.forEach((el) => el.classList.add('is-visible'));
   }
 
+  // ---------- Home: hero slideshow (photos rendered by PHP, this only cross-fades them) ----------
+  const heroSlider = document.querySelector('[data-hero-slider]');
+  if (heroSlider) {
+    const bgs = [...heroSlider.querySelectorAll('[data-hero-bg]')];
+    const frames = [...heroSlider.querySelectorAll('[data-hero-frame]')];
+    const dots = [...heroSlider.querySelectorAll('[data-hero-dot]')];
+    const caption = heroSlider.querySelector('[data-hero-caption]');
+    const n = bgs.length;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let cur = 0;
+    let timer = null;
+
+    const fade = (img, on) => { img.classList.toggle('opacity-100', on); img.classList.toggle('opacity-0', !on); };
+    const show = (i) => {
+      cur = (i + n) % n;
+      bgs.forEach((img, k) => fade(img, k === cur));
+      // left arch = previous photo, centre = current, right = next
+      frames.forEach((frame) => {
+        const idx = (cur + +frame.dataset.heroFrame + n) % n;
+        frame.querySelectorAll('img').forEach((img, k) => {
+          fade(img, k === idx);
+          img.alt = frame.dataset.heroFrame === '0' && k === idx ? dots[k].dataset.caption : '';
+        });
+      });
+      dots.forEach((d, k) => d.setAttribute('aria-pressed', k === cur ? 'true' : 'false'));
+      if (caption) caption.textContent = dots[cur].dataset.caption;
+    };
+    const stop = () => { clearInterval(timer); timer = null; };
+    const start = () => {
+      stop();
+      if (!reduceMotion && !document.hidden) timer = setInterval(() => show(cur + 1), +heroSlider.dataset.interval || 5500);
+    };
+
+    dots.forEach((d) => d.addEventListener('click', () => { show(+d.dataset.heroDot); start(); }));
+    // pause while the visitor is looking at / interacting with the hero, or the tab is in the background
+    heroSlider.addEventListener('mouseenter', stop);
+    heroSlider.addEventListener('mouseleave', start);
+    heroSlider.addEventListener('focusin', stop);
+    heroSlider.addEventListener('focusout', start);
+    document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+    start();
+  }
+
   // ---------- Home: featured products by dynasty (Ajax, server-rendered cards) ----------
   const tabs = document.querySelector('[data-featured-tabs]');
   const grid = document.getElementById('featured-grid');

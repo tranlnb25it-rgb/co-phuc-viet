@@ -68,7 +68,7 @@ $reviewed = !$public && $status === 'completed' && App\Support\Customer::id() ? 
 
   <?php if ($isBank && $order['payment_status'] === 'pending' && !$cancelled): $bank = bank_info(); ?>
     <section class="flex flex-col gap-4 border border-gold/50 bg-silk/60 p-5 sm:flex-row sm:items-center">
-      <div class="shrink-0 border border-line bg-white p-2 text-ink"><?= qr_placeholder($order['order_code'], 'h-24 w-24') ?></div>
+      <div class="palette-light shrink-0 border border-line bg-white p-2 text-ink"><?= qr_placeholder($order['order_code'], 'h-24 w-24') ?></div>
       <div class="text-sm">
         <p class="font-serif text-xl font-semibold"><?= e(t('account.orders.awaitingTransfer')) ?></p>
         <p class="mt-1 text-ink-soft"><?= e($bank['name']) ?> · <strong class="text-ink"><?= e($bank['account']) ?></strong> · <?= e($bank['holder']) ?></p>

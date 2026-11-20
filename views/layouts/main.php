@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&display=swap&subset=vietnamese">
   <link rel="stylesheet" href="<?= asset('css/app.css') ?>">
 </head>
-<body class="flex min-h-screen flex-col" data-base="<?= e(url('/')) ?>" data-lang="<?= e(lang()) ?>">
+<body class="palette-gold flex min-h-screen flex-col" data-base="<?= e(url('/')) ?>" data-lang="<?= e(lang()) ?>">
   <?= App\Core\View::partial('partials/header') ?>
   <main class="flex-1"><?= $content ?></main>
   <?= App\Core\View::partial('partials/footer') ?>

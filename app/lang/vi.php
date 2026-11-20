@@ -20,6 +20,15 @@ return [
             'cta'     => 'Khám phá Bộ sưu tập',
             'secondary' => 'Câu chuyện văn hóa',
             'stats'   => [['3', 'Triều đại'], ['100%', 'May thủ công'], ['7–14', 'Ngày may đo']],
+            'slides'  => [
+                ['hero-1.jpg', 'Áo Nhật Bình & Áo Tấc gấm — lễ phục triều Nguyễn'],
+                ['hero-2.jpg', 'Áo Giao Lĩnh, Áo Ngũ Thân và nón quai thao'],
+                ['hero-3.jpg', 'Cung phục thời Hậu Lê (1428–1789)'],
+                ['hero-4.jpg', 'Áo Tấc nam và áo dài tay rộng nữ'],
+                ['hero-5.jpg', 'Áo Giao Lĩnh giữa đầm sen'],
+                ['hero-6.jpg', 'Lễ phục hoàng hậu với mũ phượng'],
+            ],
+            'slideLabel' => 'Ảnh :n',
         ],
         'categories' => [
             'eyebrow' => 'Danh mục nổi bật',

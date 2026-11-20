@@ -11,10 +11,28 @@ $story = Lang::raw('home.story');
 $categoryTint = ['ao-nhat-binh' => '#9E2A2B', 'ao-tac' => '#2E4A7D', 'ao-giao-linh' => '#6B3A2A', 'phu-kien' => '#C59B27'];
 ?>
 
-<!-- ========== HERO ========== -->
-<section class="hero-pattern relative overflow-hidden bg-crimson-dark text-ivory">
+<!-- ========== HERO ==========
+     Photo slideshow: the current photo, blurred and tinted, fills the background; the three arches show
+     the previous / current / next photo sharp. app.js cross-fades them (see "Home: hero slideshow"). -->
+<?php
+$heroDir = dirname(__DIR__, 2) . '/assets/img/hero/';
+$slides = array_values(array_filter($hero['slides'] ?? [], fn($s) => is_file($heroDir . $s[0])));
+$slideCount = count($slides);
+$heroImg = fn(string $file) => asset('img/hero/' . $file);
+?>
+<section class="palette-light relative isolate overflow-hidden bg-crimson-dark text-ivory" <?= $slideCount > 1 ? 'data-hero-slider data-interval="5500"' : '' ?>>
+  <!-- background -->
+  <div class="absolute inset-0 -z-10" aria-hidden="true">
+    <?php foreach ($slides as $i => [$file]): ?>
+      <img src="<?= e($heroImg($file)) ?>" alt="" decoding="async" data-hero-bg="<?= $i ?>"
+           class="absolute inset-0 h-full w-full scale-105 object-cover object-[center_25%] blur-[1.5px] transition-opacity duration-[1500ms] ease-silk <?= $i === 0 ? 'opacity-100' : 'opacity-0' ?>">
+    <?php endforeach; ?>
+    <div class="absolute inset-0 bg-gradient-to-b from-ink/70 via-ink/50 to-ink/40 lg:bg-gradient-to-r lg:from-ink/80 lg:via-ink/45 lg:to-crimson-dark/10"></div>
+    <div class="hero-pattern absolute inset-0 opacity-20"></div>
+  </div>
+
   <div class="container-page grid items-center gap-12 py-16 lg:grid-cols-[1.1fr_1fr] lg:py-24">
-    <div class="reveal">
+    <div class="reveal [text-shadow:0_2px_12px_rgb(0_0_0/0.45)]">
       <p class="text-xs font-semibold uppercase tracking-[0.3em] text-gold-light"><?= e($hero['eyebrow']) ?></p>
       <h1 class="mt-5 text-5xl leading-[1.05] text-ivory sm:text-6xl xl:text-7xl"><?= $hero['title'] /* trusted markup from lang file */ ?></h1>
       <p class="mt-6 max-w-xl text-base leading-relaxed text-ivory/80 sm:text-lg"><?= e($hero['text']) ?></p>
@@ -33,16 +51,37 @@ $categoryTint = ['ao-nhat-binh' => '#9E2A2B', 'ao-tac' => '#2E4A7D', 'ao-giao-li
       </dl>
     </div>
 
-    <!-- Showcase: three arched frames -->
-    <div class="reveal relative mx-auto grid w-full max-w-lg grid-cols-3 items-end gap-3 sm:gap-4" style="--delay:150ms">
-      <?php
-      $showcase = [['Áo Tấc', '#2E4A7D', 'aspect-[3/5]'], ['Áo Nhật Bình', '#C59B27', 'aspect-[3/6]'], ['Áo Giao Lĩnh', '#6B3A2A', 'aspect-[3/5]']];
-      foreach ($showcase as $i => [$name, $tint, $ratio]): ?>
-        <div class="arch-frame <?= $ratio ?> <?= $i === 1 ? '' : 'translate-y-6' ?>">
-          <?= product_image(null, $name, $tint) ?>
+    <!-- Showcase: three arched frames (previous · current · next photo) -->
+    <div class="reveal" style="--delay:150ms">
+      <div class="relative mx-auto grid w-full max-w-lg grid-cols-3 items-end gap-3 sm:gap-4">
+        <?php
+        $showcase = [['Áo Tấc', '#2E4A7D', 'aspect-[3/5]'], ['Áo Nhật Bình', '#C59B27', 'aspect-[3/6]'], ['Áo Giao Lĩnh', '#6B3A2A', 'aspect-[3/5]']];
+        foreach ($showcase as $k => [$name, $tint, $ratio]): $offset = $k - 1; ?>
+          <div class="arch-frame <?= $ratio ?> <?= $k === 1 ? '' : 'translate-y-6' ?>" data-hero-frame="<?= $offset ?>">
+            <?php if ($slideCount): $show = ($offset + $slideCount) % $slideCount; ?>
+              <?php foreach ($slides as $i => [$file, $caption]): ?>
+                <img src="<?= e($heroImg($file)) ?>" alt="<?= $k === 1 && $i === $show ? e($caption) : '' ?>" decoding="async"
+                     class="absolute inset-0 h-full w-full object-cover object-[center_20%] transition-opacity duration-[1200ms] ease-silk <?= $i === $show ? 'opacity-100' : 'opacity-0' ?>">
+              <?php endforeach; ?>
+            <?php else: ?>
+              <?= product_image(null, $name, $tint) ?>
+            <?php endif; ?>
+          </div>
+        <?php endforeach; ?>
+        <div class="pointer-events-none absolute -inset-6 -z-0 rounded-t-full border border-gold/20"></div>
+      </div>
+
+      <?php if ($slideCount > 1): ?>
+        <div class="mt-12 flex justify-center">
+          <div class="flex items-center gap-2">
+            <?php foreach ($slides as $i => [, $caption]): ?>
+              <button type="button" data-hero-dot="<?= $i ?>" data-caption="<?= e($caption) ?>" aria-pressed="<?= $i === 0 ? 'true' : 'false' ?>"
+                      aria-label="<?= e(t('home.hero.slideLabel', ['n' => $i + 1]) . ': ' . $caption) ?>"
+                      class="h-2 w-2 rounded-full bg-ivory/40 transition-all duration-300 hover:bg-ivory/80 aria-pressed:w-7 aria-pressed:bg-gold"></button>
+            <?php endforeach; ?>
+          </div>
         </div>
-      <?php endforeach; ?>
-      <div class="pointer-events-none absolute -inset-6 -z-0 rounded-t-full border border-gold/20"></div>
+      <?php endif; ?>
     </div>
   </div>
   <div class="h-1.5 bg-gradient-to-r from-gold-dark via-gold-light to-gold-dark"></div>

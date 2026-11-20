@@ -95,6 +95,46 @@
   .js &.is-visible { opacity: 1; transform: none; }
 }
 
+/* ---------- Shop palette: terracotta gold (Lý-dynasty fired clay) ----------
+   Every colour utility reads a CSS variable, so re-pointing the variables here re-themes the whole shop
+   (set on <body> in views/layouts/main.php; the admin keeps the light palette).
+   Surfaces take the warm ochre of Lý terracotta, text turns deep brown, crimson stays the accent colour,
+   and a faint "dragon in a bodhi leaf" motif (assets/img/motif/ly-dragon.svg) repeats across the page. */
+.palette-gold {
+  --color-ivory: #F5DC8E;          /* page background & panels (also the light text on crimson buttons) */
+  --color-silk: #F8E7AC;           /* raised bands and cards */
+  --color-white: #FFF7DC;          /* inputs and translucent cards (bg-white/60) */
+  --color-ink: #2A160D;            /* main text — deep brown */
+  --color-ink-soft: #5A3A1A;       /* secondary text */
+  --color-line: #D9AE55;           /* borders */
+  --color-gold: #9A6A14;           /* bronze-gold: dividers, stars and outlines stay visible on gold paper */
+  --color-gold-dark: #6B4210;      /* bronze: gold text needs more contrast on gold paper */
+  --color-emerald-700: #065F46;
+  /* gold paper framed by Lý-dynasty dragon heads, clouds and a beaded wave border; it stays put
+     while the page scrolls, so every page sits inside the frame (iOS falls back to scrolling with it) */
+  /* a gold-paper veil softens the artwork so text stays readable wherever it overlaps a dragon */
+  background-image: linear-gradient(rgb(250 236 182 / 0.6), rgb(250 236 182 / 0.6)), url("../img/motif/ly-dragon-frame.webp");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+/* Blocks that keep the original light palette inside the red shop: photo hero, QR codes,
+   placeholder images, dark overlays behind the menu / cart drawer. */
+.palette-light {
+  --color-ivory: #FAF6F0;
+  --color-silk: #F3EBDD;
+  --color-white: #FFFFFF;
+  --color-ink: #2B2623;
+  --color-ink-soft: #5C534D;
+  --color-line: #E5D9C6;
+  --color-crimson: #8B1E1E;
+  --color-crimson-light: #9E2A2B;
+  --color-crimson-dark: #6E1515;
+  --color-gold: #C59B27;
+  --color-gold-dark: #9C7A1C;
+  --color-emerald-700: #047857;
+}
+
 /* Elements only needed when JavaScript is off (e.g. the catalog "Apply" button) */
 .js [data-nojs-only] { display: none; }
 

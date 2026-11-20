@@ -20,6 +20,15 @@ return [
             'cta'     => 'Explore the Collection',
             'secondary' => 'Cultural story',
             'stats'   => [['3', 'Dynasties'], ['100%', 'Handmade'], ['7–14', 'Days to tailor']],
+            'slides'  => [
+                ['hero-1.jpg', 'Áo Nhật Bình & brocade Áo Tấc — Nguyễn court dress'],
+                ['hero-2.jpg', 'Áo Giao Lĩnh, Áo Ngũ Thân and the quai thao hat'],
+                ['hero-3.jpg', 'Court dress of the Later Lê (1428–1789)'],
+                ['hero-4.jpg', 'Men’s Áo Tấc and a wide-sleeved women’s robe'],
+                ['hero-5.jpg', 'Áo Giao Lĩnh among the lotus ponds'],
+                ['hero-6.jpg', 'Empress’s ceremonial robe and phoenix crown'],
+            ],
+            'slideLabel' => 'Photo :n',
         ],
         'categories' => [
             'eyebrow' => 'Featured categories',

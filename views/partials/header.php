@@ -42,7 +42,7 @@ $navLink = fn(bool $active) => 'nav-link ' . ($active ? 'is-active' : '');
       </a>
       <a href="<?= e(url('/yeu-thich')) ?>" class="relative rounded-full p-2 transition hover:bg-silk" aria-label="<?= e(t('nav.wishlist')) ?>">
         <?= icon('heart') ?>
-        <span data-wishlist-count class="<?= $wishCount ? '' : 'hidden' ?> absolute -right-0.5 -top-0.5 h-4 min-w-4 rounded-full bg-gold px-1 text-center text-[10px] font-semibold leading-4 text-ink"><?= $wishCount ?: '' ?></span>
+        <span data-wishlist-count class="<?= $wishCount ? '' : 'hidden' ?> absolute -right-0.5 -top-0.5 h-4 min-w-4 rounded-full bg-gold px-1 text-center text-[10px] font-semibold leading-4 text-[#2B2623]"><?= $wishCount ?: '' ?></span>
       </a>
       <?php $cartCount = App\Support\Cart::count(); ?>
       <a href="<?= e(url('/thanh-toan')) ?>" class="relative rounded-full p-2 transition hover:bg-silk" aria-label="<?= e(t('nav.cart')) ?>"
@@ -58,7 +58,7 @@ $navLink = fn(bool $active) => 'nav-link ' . ($active ? 'is-active' : '');
 <!-- Mobile menu. Kept OUTSIDE <header>: the header's backdrop-blur would otherwise trap this
      fixed overlay inside the header's own box (only ~70px tall), leaving the links on a transparent panel. -->
 <div id="mobile-menu" class="fixed inset-0 z-50 hidden lg:hidden" data-menu role="dialog" aria-modal="true" aria-label="<?= e(t('nav.menu')) ?>">
-  <div class="absolute inset-0 bg-ink/60 backdrop-blur-sm transition-opacity duration-300 starting:opacity-0" data-menu-close></div>
+  <div class="palette-light absolute inset-0 bg-ink/60 backdrop-blur-sm transition-opacity duration-300 starting:opacity-0" data-menu-close></div>
 
   <div class="absolute inset-y-0 left-0 flex w-80 max-w-[86vw] flex-col overflow-y-auto bg-ivory shadow-2xl transition-transform duration-300 ease-silk starting:-translate-x-full">
     <div class="h-1 shrink-0 bg-gradient-to-r from-crimson via-gold to-crimson"></div>
@@ -99,7 +99,7 @@ $navLink = fn(bool $active) => 'nav-link ' . ($active ? 'is-active' : '');
         <a href="<?= e(url($href)) ?>" class="flex items-center gap-3 rounded-sm px-2 py-2.5 text-sm transition hover:bg-silk hover:text-crimson">
           <span class="flex h-8 w-8 items-center justify-center rounded-full bg-silk text-crimson"><?= icon($ic, 'h-4 w-4') ?></span>
           <span class="flex-1"><?= e($label) ?></span>
-          <?php if ($badge): ?><span class="rounded-full bg-gold px-2 text-xs font-semibold text-ink"><?= (int) $badge ?></span><?php endif; ?>
+          <?php if ($badge): ?><span class="rounded-full bg-gold px-2 text-xs font-semibold text-[#2B2623]"><?= (int) $badge ?></span><?php endif; ?>
         </a>
       <?php endforeach; ?>
     </div>

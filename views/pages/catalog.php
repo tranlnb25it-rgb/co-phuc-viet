@@ -31,7 +31,7 @@ $legend = 'mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-gold-dark'
 
   <!-- ========== Filter panel (sidebar on desktop, slide-over on mobile) ========== -->
   <div id="filter-panel" class="fixed inset-0 z-50 hidden lg:static lg:z-auto lg:block" data-filter-panel>
-    <div class="absolute inset-0 bg-ink/40 lg:hidden" data-filter-close></div>
+    <div class="palette-light absolute inset-0 bg-ink/40 lg:hidden" data-filter-close></div>
 
     <aside class="absolute inset-y-0 left-0 flex w-80 max-w-[85vw] flex-col bg-ivory shadow-xl lg:static lg:w-auto lg:bg-transparent lg:shadow-none">
       <div class="flex items-center justify-between border-b border-line p-5 lg:hidden">

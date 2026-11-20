@@ -116,7 +116,7 @@ function product_image(?string $url, string $alt, ?string $tint = null, string $
     }
     $tint  = preg_match('/^#[0-9a-fA-F]{6}$/', (string) $tint) ? $tint : '#8B1E1E';
     $label = $url ? substr($url, strlen('placeholder:')) : '';
-    return '<div role="img" aria-label="' . e($alt) . '" class="relative flex h-full w-full flex-col items-center justify-center gap-3 overflow-hidden ' . e($class) . '"'
+    return '<div role="img" aria-label="' . e($alt) . '" class="palette-light relative flex h-full w-full flex-col items-center justify-center gap-3 overflow-hidden ' . e($class) . '"'
          . ' style="background:linear-gradient(160deg,' . $tint . '33 0%,' . $tint . '12 55%,#F3EBDD 100%)">'
          . '<div class="absolute inset-3 border border-gold/40"></div>'
          . lotus('h-10 w-10 text-gold/70')
@@ -242,4 +242,22 @@ function stars(float $rating, string $class = 'h-4 w-4', ?string $label = null):
          . $row('text-line')
          . '<span class="absolute inset-y-0 left-0 overflow-hidden" style="width:' . round($pct, 1) . '%">' . $row('text-gold') . '</span>'
          . '</span>';
+}
+
+/**
+ * Lý-dynasty motif — a dragon coiled in a bodhi leaf (lá đề). Same drawing as assets/img/motif/ly-dragon.svg
+ * (the faint page pattern), but full strength and in currentColor for dividers and ornaments.
+ */
+function ly_dragon(string $class = 'h-8 w-8'): string
+{
+    static $svg = null;
+    if ($svg === null) {
+        $raw = (string) file_get_contents(dirname(__DIR__) . '/assets/img/motif/ly-dragon.svg');
+        $raw = preg_replace('/<!--.*?-->/s', '', $raw);
+        // keep only the leaf + dragon (viewBox crop), draw in currentColor at full strength
+        $raw = preg_replace(['/stroke="#5A3420" stroke-opacity="[\d.]+"/', '/fill="#5A3420" fill-opacity="[\d.]+"/'],
+                            ['stroke="currentColor"', 'fill="currentColor" fill-opacity="0.18"'], $raw);
+        $svg = preg_replace('/viewBox="[^"]*"/', 'viewBox="50 10 100 150"', $raw, 1);
+    }
+    return preg_replace('/^<svg /', '<svg class="' . e($class) . '" aria-hidden="true" ', $svg, 1);
 }
